@@ -5,16 +5,18 @@ import { UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
+import { FaBrain, FaHome, FaQuestionCircle, FaCrown, FaInfoCircle, FaBars, FaTimes } from "react-icons/fa";
+
 const Header = ({ logo }) => {
   const [isUserButtonLoaded, setUserButtonLoaded] = useState(false);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = ()=>{
-    setIsOpen(!isOpen)
-  }
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   const SkeletonLoader = () => (
-    <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div>
+    <div className="w-8 h-8 bg-muted rounded-full animate-pulse"></div>
   );
 
   useEffect(() => {
@@ -27,119 +29,115 @@ const Header = ({ logo }) => {
 
   const path = usePathname();
 
-  useEffect(() => {
-    console.log(path);
-  }, []);
+  const navigationItems = [
+    { href: "/dashboard", label: "Dashboard", icon: FaHome },
+    { href: "/dashboard/question", label: "Questions", icon: FaQuestionCircle },
+    { href: "/dashboard/upgrade", label: "Upgrade", icon: FaCrown },
+    { href: "/dashboard/howit", label: "How it works?", icon: FaInfoCircle },
+  ];
+
   return (
-    <div className=" bg-secondary shadow-sm ">
-      <div className="w-[80%] m-auto flex gap-4 items-center justify-between">
-        <Link className="hidden md:block"  href="/dashboard">
-          <Image src={logo} width={80} height={80} alt="logo" />
-        </Link>
-        <ul className="hidden md:flex gap-6">
-          <Link href="/dashboard">
-            <li
-              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-                path == "/dashboard" && "text-black font-bold"
-              }`}
-            >
-              Dashboard
-            </li>
-          </Link>
-          <Link href="/dashboard/question">
-          <li
-            className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-              path == "/dashboard/question" && "text-black font-bold"
-            }`}
-          >
-            Questions
-          </li>
-          </Link>
-          
-          <Link href="/dashboard/upgrade">
-            <li
-              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-                path == "/dashboard/upgrade" && "text-black font-bold"
-              }`}
-            >
-              Upgrade
-            </li>
+    <header className="sticky top-0 z-50 glass-effect border-b backdrop-blur-xl">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link className="flex items-center space-x-3 group" href="/dashboard">
+            <div className="relative">
+              <div className="w-10 h-10 bg-gradient-modern rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-glow">
+                <FaBrain className="text-white text-xl" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-modern rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+            </div>
+            <span className="hidden md:block text-xl font-bold text-gradient">PrepMate.ai</span>
           </Link>
 
-          <Link href="/dashboard/howit">
-            <li
-              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-                path == "/dashboard/howit" && "text-black font-bold"
-              }`}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
+            {navigationItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = path === item.href;
+              
+              return (
+                <Link key={item.href} href={item.href}>
+                  <div className={`
+                    relative flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300
+                    ${isActive 
+                      ? 'bg-gradient-modern text-white shadow-glow' 
+                      : 'text-muted-foreground hover:text-primary hover:bg-secondary/50'
+                    }
+                  `}>
+                    <Icon className={`text-base ${isActive ? 'text-white' : ''}`} />
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <div className="absolute inset-0 bg-gradient-modern rounded-xl blur opacity-30"></div>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center space-x-4">
+            <ModeToggle />
+            <div className="relative">
+              {isUserButtonLoaded ? (
+                <div className="relative">
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-10 h-10 rounded-xl shadow-medium hover:shadow-glow transition-all duration-300",
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                <SkeletonLoader />
+              )}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-xl bg-secondary/50 hover:bg-secondary transition-colors duration-300"
             >
-              How it works?
-            </li>
-          </Link>
-        </ul>
-        <div className="md:hidden">
-          <button onClick={toggleMenu} className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-            <span className="sr-only">Open main menu</span>
-            {isOpen ? (
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            )}
-          </button>
-        </div>
-        <div className="flex gap-10" >
-          <ModeToggle  />
-          {isUserButtonLoaded ? <UserButton /> : <SkeletonLoader />}
-        </div>
-      </div>
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-5">
-          <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3" >
-          <Link href="/dashboard">
-            <li
-              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-                path == "/dashboard" && "text-black font-bold"
-              }`}
-            >
-              Dashboard
-            </li>
-          </Link>
-          <Link href="/dashboard/question">
-          <li
-            className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-              path == "/dashboard/question" && "text-black font-bold"
-            }`}
-          >
-            Questions
-          </li>
-          </Link>
-          <Link href="/dashboard/upgrade">
-            <li
-              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-                path == "/dashboard/upgrade" && "text-black font-bold"
-              }`}
-            >
-              Upgrade
-            </li>
-          </Link>
-          <Link href="/dashboard/howit">
-            <li
-              className={`hover:text-black hover:font-bold transition-all cursor-pointer ${
-                path == "/dashboard/howit" && "text-black font-bold"
-              }`}
-            >
-              How it works?
-            </li>
-          </Link>
-          </ul>
+              {isOpen ? (
+                <FaTimes className="w-5 h-5 text-foreground" />
+              ) : (
+                <FaBars className="w-5 h-5 text-foreground" />
+              )}
+            </button>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden border-t bg-card/95 backdrop-blur-sm animate-fade-in-up">
+            <nav className="py-4 space-y-2">
+              {navigationItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = path === item.href;
+                
+                return (
+                  <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>
+                    <div className={`
+                      flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300
+                      ${isActive 
+                        ? 'bg-gradient-modern text-white shadow-glow' 
+                        : 'text-muted-foreground hover:text-primary hover:bg-secondary/50'
+                      }
+                    `}>
+                      <Icon className={`text-base ${isActive ? 'text-white' : ''}`} />
+                      <span>{item.label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
   );
 };
 
