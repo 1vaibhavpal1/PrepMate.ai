@@ -14,7 +14,7 @@ const page = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="relative overflow-hidden">
+      <main className="relative overflow-hidden scroll-smooth">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 bg-mesh-gradient opacity-10 animate-pulse"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-modern rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
@@ -32,8 +32,7 @@ const page = () => {
             </div>
             
             <nav className="flex items-center space-x-6 mt-4 md:mt-0">
-              <Link href="#features" className="text-muted-foreground hover:text-primary transition-colors">Features</Link>
-              <Link href="#testimonials" className="text-muted-foreground hover:text-primary transition-colors">Reviews</Link>
+              <Link href="#features" className="text-muted-foreground hover:text-primary transition-colors ">Features</Link>
               <Link href="/dashboard">
                 <Button className="btn-gradient shadow-glow hover:shadow-glow-lg transition-all duration-300">
                   Get Started <FaArrowRight className="ml-2 text-sm" />

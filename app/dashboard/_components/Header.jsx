@@ -31,7 +31,7 @@ const Header = ({ logo }) => {
 
   const navigationItems = [
     { href: "/dashboard", label: "Dashboard", icon: FaHome },
-    { href: "/dashboard/question", label: "Questions", icon: FaQuestionCircle },
+    // { href: "/dashboard/question", label: "Questions", icon: FaQuestionCircle },
     { href: "/dashboard/upgrade", label: "Upgrade", icon: FaCrown },
     { href: "/dashboard/howit", label: "How it works?", icon: FaInfoCircle },
   ];

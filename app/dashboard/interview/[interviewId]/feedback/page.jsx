@@ -60,11 +60,11 @@ const Feedback = ({ params }) => {
             Your overall interview rating{" "}
             <strong
               className={`${
-                overallRating >= 5 ? "text-green-500" : "text-red-600"
+                overallRating >= 3 ? "text-green-500" : "text-red-600"
               }`}
             >
               {overallRating}
-              <span className="text-black">/10</span>
+              <span className="text-black">/5</span>
             </strong>
           </h2>
           <h2 className="text-sm text-gray-500">

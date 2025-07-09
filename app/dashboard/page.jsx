@@ -12,18 +12,20 @@ const Dashboard = () => {
         <div className="absolute inset-0 bg-mesh-gradient opacity-5"></div>
         <div className="relative z-10 p-10">
           <div className="animate-fade-in-up">
-            <div className="flex items-center space-x-3 mb-4">
+
+          <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-gradient-modern rounded-xl flex items-center justify-center shadow-glow">
                 <FaRocket className="text-white text-xl" />
               </div>
+
               <div>
                 <h1 className="text-4xl font-bold text-gradient">Dashboard</h1>
                 <p className="text-muted-foreground">Your AI-powered interview preparation hub</p>
               </div>
-            </div>
+          </div>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {/* Quick Stats */}
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               <div className="card-modern p-6 bg-gradient-to-r from-primary/5 to-primary/10">
                 <div className="flex items-center justify-between">
                   <div>
@@ -59,8 +61,8 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </div>*/}
+          </div> 
 
           {/* Action Section */}
           <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
@@ -76,6 +78,7 @@ const Dashboard = () => {
           <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <InterviewList />
           </div>
+          
         </div>
       </div>
     </div>
