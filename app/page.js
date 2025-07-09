@@ -183,7 +183,7 @@ const page = () => {
             <div className="flex items-center space-x-6">
               <span className="text-muted-foreground">© 2025 PrepMate.ai. Created by Vaibhav Pal</span>
               <div className="flex items-center space-x-4">
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://github.com/1vaibhavpal1/" className="text-muted-foreground hover:text-primary transition-colors">
                   <FaGithub className="text-xl" />
                 </a>
               </div>
